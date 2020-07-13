@@ -3,19 +3,17 @@ import React, { Component } from 'react';
 export default class Counter extends Component {
     //for dynamic value instead of hardcoding
     state = { 
-        count : 0,
+        count : this.props.value,
         tags: ['tag1','tag2'],
         message: "Please create a new tag!"
      };
      
 //Adding constructor always is a hassle hence another way to inherit 'this' is set the function to arrow function
-handleIncrement =product =>{
-    console.log(product);
-    this.setState({count: this.state.count+1})
-};
+
     render() { 
 
         //While returning two tags the React.createElement in bable doest know which tag to pass as it passes only 1 element as a parameter; hence wrap two tags in div; one of the solution
+
 
         return (
             <div>
@@ -32,7 +30,11 @@ handleIncrement =product =>{
         
     }
     //Ctrl+Shitf+R : For auto extraction of code lines to another function
-
+    
+    handleIncrement =product =>{
+        console.log(product);
+        this.setState({count: this.state.count+1})
+    };
   
 
     getBadgeClasses() {
@@ -43,7 +45,7 @@ handleIncrement =product =>{
     }
     formatCount(){
         const {count} = this.state;
-        const x=<h1>Zero</h1>;
+        const x='Zero';
         return count===0?x:count;
     }
 }
@@ -54,6 +56,8 @@ handleIncrement =product =>{
 
 /*Extra code tried out
 export default Counter;  
+
+//console.log("props",this.props);
 
 Insert image through 'state' element imageURL
 imageURL:"https://picsum.photos/200"
