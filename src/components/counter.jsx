@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Counter extends Component {
     //for dynamic value instead of hardcoding
     state = { 
-        count : 1,
+        count : 0,
         tags: [],
         message: "Please create a new tag!"
         //imageURL:"https://picsum.photos/200"
@@ -32,8 +32,14 @@ export default class Counter extends Component {
         return (
             <div>
                 {this.state.tags.length===0&&this.state.message}
-               {this.renderTags()} 
-               <button onClick={this.handleIncrement()} className={this.getBadgeClasses()}>Increment</button>
+                {this.renderTags()} 
+                <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+                <button 
+                onClick={this.handleIncrement} 
+                className={this.getBadgeClasses()}
+                >
+                    Increment
+                </button>
             </div>
         );  
         
@@ -41,21 +47,22 @@ export default class Counter extends Component {
     //Ctrl+Shitf+R : For auto extraction of code lines to another function
    
     handleIncrement =() =>{
-        console.log('Increment Clicked',this.state.count);
-    }
+        //console.log('Increment Clicked',this.state.count);
+        this.setState({count: this.state.count+1})
+    };
     getBadgeClasses() {
          //if count is 0 display in yellow else display in blue
         let classes = "badge m-2 badge-";
         classes += this.state.count === 0 ? "warning" : "primary";
         return classes;
     }
-}
-
-   /* formatCount(){
+       formatCount(){
         const {count} = this.state;
         const x=<h1>Zero</h1>;
         return count===0?x:count;
     }
-}*/
+}
+
+ 
 
 //export default Counter;  
