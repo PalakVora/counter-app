@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 
 export default class Counter extends Component {
     //for dynamic value instead of hardcoding
-    state = { 
-        count : this.props.counter.value,
-        tags: ['tag1','tag2'],
-        message: "Please create a new tag!"
-     };
-     
+  
 //Adding constructor always is a hassle hence another way to inherit 'this' is set the function to arrow function
 
     render() { 
@@ -19,9 +14,9 @@ export default class Counter extends Component {
             <div>
                 <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
 
-                <button 
-                onClick={() => this.handleIncrement({id:1})} //if id:1 not passed, the buttons dont perform function 
-                className={this.getBadgeClasses()}
+                <button
+                    className={"btn btn-primary btn-sm m-2"}
+                    onClick={()=>this.props.onIncrement(this.props.counter)}
                 >
                     Increment
                 </button>
@@ -40,22 +35,18 @@ export default class Counter extends Component {
     Ctrl+Shitf+R : For auto extraction of code lines to another function
     Event raised : onDelete
     */
-    handleIncrement =product =>{
-        console.log(product);
-        this.setState({count: this.state.count+1})
-    };
-  
+   
 
     getBadgeClasses() {
          //if count is 0 display in yellow else display in blue
         let classes = "badge m-2 badge-";
-        classes += this.state.count === 0 ? "warning" : "primary";
+        classes += this.props.counter.value === 0 ? "warning" : "primary";
         return classes;
     }
     formatCount(){
-        const {count} = this.state;
+        const {value} = this.props.counter;
         const x='Zero';
-        return count===0?x:count;
+        return value===0?x:value;
     }
 }
 
@@ -67,6 +58,21 @@ export default class Counter extends Component {
 export default Counter;  
 
 //console.log("props",this.props);
+
+Handle increment before counter becoming a controller component
+  state = { 
+        count : this.props.counter.value,
+        tags: ['tag1','tag2'],
+        message: "Please create a new tag!"
+     };
+     
+handleIncrement =product =>{
+        console.log(product);
+        this.setState({count: this.state.count+1})
+    };
+  
+
+
 
 Insert image through 'state' element imageURL
 imageURL:"https://picsum.photos/200"
